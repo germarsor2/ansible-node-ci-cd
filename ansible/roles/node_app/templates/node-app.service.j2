@@ -1,0 +1,13 @@
+[Unit]
+Description=Node App
+After=network.target
+
+[Service]
+User=deploy
+WorkingDirectory=/home/deploy/apps/myapp/app
+ExecStart=/usr/bin/npm start
+Restart=always
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target

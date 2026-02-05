@@ -1,0 +1,20 @@
+---
+- name: Ensure app directory exists
+  file:
+    path: /home/deploy/apps/myapp
+    state: directory
+    owner: deploy
+    group: deploy
+
+- name: Clone application repo
+  git:
+    repo: 'https://github.com/germarsor2/ansible-node-ci-cd.git'
+    dest: /home/deploy/apps/myapp
+    version: "{{ git_ref | default('main') }}"
+    force: yes
+    update: yes
+
+- name: Install npm dependencies
+  npm:
+    path: /home/deploy/apps/myapp/app
+    production: yes
